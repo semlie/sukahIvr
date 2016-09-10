@@ -181,7 +181,7 @@ class callFlow_manager {
         if (!empty($product)) {
             $productArray = $this->productManager->mapProductToArray($product);
 
-            if ($this->validate_product($productArray)) {
+            if ($this->validate_product($product)) {
                 return $product->Id;
             }
         }
@@ -190,11 +190,14 @@ class callFlow_manager {
 
     public function say_array_product($productArray) {
         if (!empty($productArray)) {
-            foreach ($productArray as $value) {
                 $prefix = self::FAILES_BASE_PATH;
 
-                $this->sayFile($prefix . $value);
-            }
+                $this->sayFile($prefix . $productArray->CatalogNumber);   
+                $this->sayFile($prefix ."price");
+
+                $this->sayDecimal($productArray->Price);
+
+            
         }
     }
 
