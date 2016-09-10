@@ -11,7 +11,7 @@ class callFlow_manager {
     const MAX_DIGIT = 8;
     CONST TIME_OUT = 8000;
     CONST MAX_CYCLES = 4;
-    CONST FAILES_BASE_PATH = 'gerev/';
+    CONST FAILES_BASE_PATH = 'sukah/';
 
     public $agi, $productManager, $callerManager, $callerItem, $orderId, $orderManager, $mailService;
 

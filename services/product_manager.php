@@ -27,41 +27,11 @@ class product_manager implements iproduct_manager {
 
     public function mapProductToArray(product $product) {
         $row = array();
-        $row[] = $product->FirstCategory;
-        $row[] = $product->SecondaryCategory;
+        $row[] = $product->CatalogNumber;
 
-        if (!empty($product->Thickness)) {
-            $row[] = 'thickness';
-            $row[] = $product->Thickness;
-        }
-        if (!empty($product->Size)) {
-
-            $row[] = 'size';
-            $row[] = $product->Size;
-        }
-
-        if (!empty($product->Color)) {
-            $row[] = 'color';
-            $row[] = $product->Color;
-        }
-        
-        if (!empty($product->Material)) {
-            $row[] = 'material';
-            $row[] = $product->Material;
-        }
-        
-        if (!empty($product->Brand)) {
-            $row[] = 'brand';
-            $row[] = $product->Brand;
-        }
-        if (!empty($product->Example)) {
-
-            $row[] = 'example';
-            $row[] = $product->Example;
-        }
-        if (!empty($product->Strength)) {
-
-            $row[] = $product->Strength;
+        if (!empty($product->Price)) {
+            $row[] = 'price';
+            $row[] = $product->Price;
         }
         return $row;
     }
