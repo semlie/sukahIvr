@@ -59,8 +59,8 @@ class product_dataService extends DataService implements sqlModel {
         return $sql;
     }
 
-    public function GetUpdateString($callerItem) {
-        $sql = "update `OrderItems` set `OrderId` = '" . $callerItem->OrderId . "', `ProductId`='" . $callerItem->ProductId . "', `CollerId` = '" . $callerItem->CollerId . "', `Quantity` ='" . $callerItem->Quantity . "' WHERE `Id` = '" . $callerItem->Id . "'";
+     public function GetUpdateString($product) {
+        $sql = "UPDATE `ivr_sukkah`.`products` SET `CatalogNumber`='" . $product->CatalogNumber . "',`Category`='" . $product->Category . "',`Size`='" . $product->Size . "',`Price`='" . $product->Price . "',`RegularPrice`='" . $product->RegularPrice . "',`Name`='" . $product->Name . "' WHERE `Id` = '" . $product->Id . "'";
         return $sql;
     }
 
