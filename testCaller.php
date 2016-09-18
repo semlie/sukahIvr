@@ -4,9 +4,11 @@ require_once  realpath(dirname(__FILE__))."/models/caller.php";
 require_once  realpath(dirname(__FILE__))."/models/caller_item.php";
 require_once  realpath(dirname(__FILE__)). '/services/caller_dataService.php';
 require_once  realpath(dirname(__FILE__)). '/services/calleritem_dataService.php';
+require_once  realpath(dirname(__FILE__)). '/services/caller_manager.php';
 
 $caller =  new caller();
 $callerItem =  new caller_item();
+$callerM =  new caller_manager();
 
 $callerDs = new caller_dataService();
 $callerItemDs = new callerItem_dataService();
@@ -21,6 +23,9 @@ $caller->Notes= "no note";
 var_dump($caller);
 
 $a = $callerDs->Add($caller);
+$caller->Region = "2";
+$callerM->SetCallerRegion($caller->Id,2);
+
 $b = $callerDs->getById($caller->Id);
 var_dump($b);
 

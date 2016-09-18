@@ -13,7 +13,7 @@ class callFlow_manager {
     CONST MAX_CYCLES = 4;
     CONST FAILES_BASE_PATH = 'sukah/';
 
-    public $agi, $productManager, $callerManager, $callerItem, $orderId, $orderManager, $mailService;
+    public $agi, $productManager, $callerManager, $callerItem, $orderId, $orderManager, $mailService,$area;
 
     function __construct($agi) {
         $this->agi = $agi;
@@ -32,7 +32,7 @@ class callFlow_manager {
         if ($this->is_call_identified($cid)) {
 //$this->read_product_details($arr, "");
 //$this->getNevigationKey("continue-or-finish", "19"); 
-
+            $this->getRegion();
             $this->Flow();
         } else {
             $this->throw_error_messege(self::FAILES_BASE_PATH . "error-no-id");
@@ -147,7 +147,7 @@ class callFlow_manager {
 
         $orderItemsArray = $this->orderManager->getOrderItemsPrinModel($order->Id);
         $cidNumber = $this->callerManager->GetPhoneNumbar($order->CallerItemId);
-        $this->mailService->sendOrderToAdmin($cidNumber, $order, $orderItemsArray, "");
+        $this->mailService->sendOrderToAdmin($cidNumber, $order, $orderItemsArray, $this->area);
         $this->agi->hangup();
 // say total 
 // hangup
@@ -155,7 +155,7 @@ class callFlow_manager {
 
     public function is_call_identified($cid) {
         $this->agi->conlog("call from {$cid['username']} ");
-        if (!empty($cid['username']) && $cid['username'] != "Restricted") {
+        if (!empty($cid['username']) && $cid['username'] != "Restricted" && $cid['username'] != "Anonymous") {
 
             $this->callerItem = $this->callerManager->GetCallerItem($cid['username']);
 //$this->agi->say_digits($cid['username']);
@@ -167,6 +167,24 @@ class callFlow_manager {
 
     public function is_user_entered_digits($results) {
         
+    }
+
+    public function getRegion() {
+        $playFile = self::FAILES_BASE_PATH . "get-region";
+        $keys = array();
+        $result = $this->loopToGetUserDataFromPhone("getData", array($playFile,"1"));
+        $this->loger("getRegion");
+        $this->loger("result == " . $result);
+        if ($result == FALSE) {
+            //TODO
+            $result = "9";
+        }
+        $callerId = $this->callerItem->CallerId;
+        $this->loger("this->callerItem->CallerId == " . $callerId);
+
+        $data = $this->callerManager->SetCallerRegion($callerId, $result);
+        $this->area = $result;
+        $this->loger("caller region " . $data->Region);
     }
 
     public function throw_error_messege($err_file_name) {
@@ -190,14 +208,12 @@ class callFlow_manager {
 
     public function say_array_product($productArray) {
         if (!empty($productArray)) {
-                $prefix = self::FAILES_BASE_PATH;
+            $prefix = self::FAILES_BASE_PATH;
 
-                $this->sayFile($prefix . $productArray->CatalogNumber);   
-                $this->sayFile($prefix ."price");
+            $this->sayFile($prefix . $productArray->CatalogNumber);
+            $this->sayFile($prefix . "price");
 
-                $this->sayDecimal($productArray->Price);
-
-            
+            $this->sayDecimal($productArray->Price);
         }
     }
 
@@ -315,17 +331,16 @@ class callFlow_manager {
 
     private function sayDecimal($number) {
         $whole = floor($number);      // 1
-        $fraction = 100*($number - $whole); // .25
-        
-        
+        $fraction = 100 * ($number - $whole); // .25
+
+
         $this->agi->say_number($whole);
-        $this->sayFile(self::FAILES_BASE_PATH."shkalim");
-        
-        if($fraction>0){
-        $this->sayFile(self::FAILES_BASE_PATH."and");
-        $this->agi->say_number($fraction);
-        $this->sayFile(self::FAILES_BASE_PATH."agorot");
-            
+        $this->sayFile(self::FAILES_BASE_PATH . "shkalim");
+
+        if ($fraction > 0) {
+            $this->sayFile(self::FAILES_BASE_PATH . "and");
+            $this->agi->say_number($fraction);
+            $this->sayFile(self::FAILES_BASE_PATH . "agorot");
         }
     }
 

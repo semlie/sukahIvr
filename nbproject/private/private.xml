@@ -2,17 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group name="אשירה">
-            <file>file:/I:/www/sukkahIvr/testCallerManager.php</file>
-            <file>file:/I:/www/sukkahIvr/services/call_flow.php</file>
-            <file>file:/I:/www/sukkahIvr/services/order_manager.php</file>
-            <file>file:/I:/www/sukkahIvr/test_orderManager.php</file>
-            <file>file:/I:/www/sukkahIvr/testCaller.php</file>
-            <file>file:/I:/www/sukkahIvr/services/caller_dataService.php</file>
-            <file>file:/I:/www/sukkahIvr/services/calleritem_dataService.php</file>
-            <file>file:/I:/www/sukkahIvr/services/product_manager.php</file>
-            <file>file:/I:/www/sukkahIvr/services/orderItem_dataService.php</file>
-            <file>file:/I:/www/sukkahIvr/config.php</file>
-        </group>
+        <group name="אשירה"/>
     </open-files>
 </project-private>

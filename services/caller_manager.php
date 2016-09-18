@@ -49,6 +49,18 @@ class caller_manager implements ICaller_manager {
     public function GetPhoneNumbar($callerId) {
         return $this->callerDataService->GetCallerNumberFromCallerId($callerId);
     }
-
-
+    
+    public function UpdateCaller(caller $caller) {
+        $this->callerDataService->Update($caller);
+        return $caller;
+    }
+    
+    public function GetCallerById($callerId) {
+        return $this->callerDataService->getById($callerId);
+    }
+    public function SetCallerRegion($callerId,$region) {
+        $caller = $this->GetCallerById($callerId);
+        $caller->Region = $region;
+        return $this->UpdateCaller($caller);
+    }
 }

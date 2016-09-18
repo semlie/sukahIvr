@@ -37,14 +37,15 @@ class caller_dataService extends DataService implements sqlModel {
         $result->PhoneNumber = $row['PhoneNumber'];
         $result->OtherPhone = $row['OtherPhone'];
         $result->Notes = $row['Notes'];
+        $result->Region = $row['Region'];
         $result->TimeStamp = $row['TimeStamp'];
 
         return $result;
     }
 
     public function GetInsertString($caller) {
-        $sql = "INSERT INTO `ivr_sukkah`.`caller` (`Id`,`Name`, `Address`, `City`, `PhoneNumber`, `OtherPhone`, `Notes`,`TimeStamp`) "
-                . "VALUES ('','" . $caller->Name . "', '" . $caller->Address . "', '" . $caller->City . "', '" . $caller->PhoneNumber . "', '" . $caller->OtherPhone . "', '" . $caller->Notes . "',CURRENT_TIMESTAMP);";
+        $sql = "INSERT INTO `ivr_sukkah`.`caller` (`Id`,`Name`, `Address`, `City`, `PhoneNumber`, `OtherPhone`, `Notes`,`TimeStamp`,`Region`) "
+                . "VALUES ('','" . $caller->Name . "', '" . $caller->Address . "', '" . $caller->City . "', '" . $caller->PhoneNumber . "', '" . $caller->OtherPhone . "', '" . $caller->Notes . "',CURRENT_TIMESTAMP, '".$caller->Region."');";
 
         return $sql;
     }
@@ -56,7 +57,9 @@ class caller_dataService extends DataService implements sqlModel {
                 . "`City`='" . $caller->City . "', "
                 . "`PhoneNumber`='" . $caller->PhoneNumber . "', "
                 . "`OtherPhone`='" . $caller->OtherPhone . "', "
-                . "`Notes`='" . $caller->Notes . "' "
+                . "`Notes`='" . $caller->Notes . "' ,"
+                . "`Region`='" . $caller->Region . "' "
+                
                 . "WHERE `Id`='" . $caller->Id . "';";
         return $sql;
     }
